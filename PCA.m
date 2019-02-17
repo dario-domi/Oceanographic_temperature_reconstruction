@@ -1,21 +1,17 @@
-% This function computes the principal components of a set of n p-dimens
-% vectors (each provided in the form of a N1xN2 matrix, where p = N1*N2)
-% and the coefficients of each observation wrt the PCs. Also the StDev of
-% the PCs (as the std of the projections of observations to each PC) and
-% the average input matrix is returned.
-% If varargin is present, then it should be a vector of positive weights to
-% be used to modify PCA. (length(weights)=p)
-
+% This function computes the principal components of a set of n p-dimens vectors (each provided in the form of a N1xN2 
+% matrix, where p = N1*N2) and the coefficients of each observation wrt the PCs. Also the StDev of the PCs 
+% (as the std of the projections of observations to each PC) and the average input matrix is returned.
+% If varargin is present, then it should be a vector of positive weights to be used to modify PCA. (length(weights)=p)
+%
 % INPUTS
-% - X: N1 x N2 x n matrix consisting of n observations. At each N1xN2 
-%      level, a matrix of observations.
+% - X: N1 x N2 x n matrix consisting of n observations. At each N1xN2 level, a matrix of observations.
 % - varargin: if present, a vector of positive weights of length p=N1*N2.
-
+%
 % OUTPUS
 % - PC: N1 x N2 x (n-1) matrix with j-th PC at level j PC(:,:,j)
 % - Mn: N1 x N2 matrix, average of initial observations in X
-% - Coeff: 
-
+% - Coeff: nx(n-1) matrix. Row Coeff(i,:) stores the coefficients of observation i with respect to the n-1 PCs.
+% - Std: (n-1)x1 vector, with standard d canonically associated to the PCs from eigenvalue decomposition.
 
 function [PC, Mn, Coeff, Std] = PCA(X, varargin)
 
@@ -43,14 +39,17 @@ else     % ie, a numeric vector of weights has been provided
     if length(weights)~=p
         error('Error: vector of weights has wrong length.');
     end
-    %% Solving the problem Xbar'*Xbar*W u = \lambda u
+    
+    %% Solving the generalised eigenvalue problem Xbar'*Xbar*W u = \lambda u
     Y=zeros(n,p);
     for i=1:p
         Y(:,i) = Xbar(:,i)*sqrt(weights(i));  % equivalent to Y = Xbar*sqrt(W), but no memory problems
     end
     [U,S,V] = svd(Y, 'econ');  % U: nxn; S: nxn; V: pxn; Y = U*S*V'; 
     U(:,end)=[]; V(:,end)=[]; S(:,end)=[]; S(end,:)=[];
+    % Dimensions and relations:
     % U: nx(n-1); S: (n-1)x(n-1); V: px(n-1); still Y = U*S*V'; 
+    
     Std = diag(S)/sqrt(n-1);
     for i=1:p
         PC(i,:) = V(i,:) / sqrt(weights(i)); % equivalent to PC=sqrt(W^(-1))*V; 
