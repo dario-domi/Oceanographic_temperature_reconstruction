@@ -1,6 +1,5 @@
-% This function takes in input a vector of numbers, and returns the
-% subvector of peaks from it. A peak is defined as an element which is
-% preceeded and followed by lower elements than itself.
+% This function takes in input a vector of numbers, and returns the subvector of peaks from it. A peak is defined as an 
+% element which is preceeded and followed by lower elements than itself.
 
 function peaks = extract_peaks(y)
 
