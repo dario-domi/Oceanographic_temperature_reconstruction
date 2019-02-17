@@ -1,5 +1,4 @@
-% Given the output of 'emulation_PCscores.m', this function computes 
-% temperature emulated mean and covariance for a set of Nloc locations.
+% Given the output of 'emulation_PCscores.m', this function computes temperature emulated mean and covariance for a set of Nloc locations.
 % Values of the PCs at the N locations are provided in PC_Val. The average
 % of the original simulations at these locations is provided in Mn_Val.
 % Either a full covariance or just the variance at the times corresponding
