@@ -1,19 +1,15 @@
-% This function computes the "optimal" correlation lengths and nugget for
-% an emulator with design points in the matrix 'Design_points', response
-% values in 'y', and predictors in 'H'. The function 'cross_val' is 
-% maximised, after this is multiplied (componentwise) with a Gamma density 
-% whose parameters are specified as input.
+% This function computes the "optimal" correlation lengths and nugget for an emulator with design points in the matrix 
+% 'Design_points', response values in 'y', and predictors in 'H'. The function 'cross_val' is maximised, after it is 
+% multiplied (componentwise) with a Gamma density whose parameters are specified as input.
 %
 % INPUTS
-% - Design_points: nx3 matrix with the (orbital) parameters at which the 
-%                  values in y have been observed
+% - Design_points: nx3 matrix with the (orbital) parameters at which the values in y have been observed
 % - y: nx1 vector of observed outputs
 % - H: nxq matrix of predictors (usually has first column of 1s)
 % - cor_fun: one of 'exp2', 'matern32', 'matern52', 'abs_exp'
-% - m1, m2, m_nu: position of the modes of the gamma distributons used as
-%                 prior in the maximisation (respectively for d1, d2, nu).
-% - a: shape parameter of the Gamma prior. Smaller a correspond to flatter
-%      densities.
+% - m1, m2, m_nu: position of the modes of the gamma distributons used as prior in the maximisation 
+%                 (respectively for d1, d2, nu).
+% - a: shape parameter of the Gamma prior. Smaller a correspond to flatter densities.
 %
 % OUTPUTS:
 % - d:  final value of optimised correlation lengths (2D)
@@ -29,7 +25,7 @@ p = haltonset(3,'Skip',floor(1000*rand),'Leap',16);
 X = net(p,M);
 X = X*diag(2*[m1,m2,m_nu]); % rescales the columns within a plausible range
 
-%% Part concerning actual maximisation (function h)
+%% Part concerning actual maximisation (for the function h)
 
 % f: Likelihood, approximated through cross validation.
 % g: Prior distribution (gamma, with shape parameter alpha>1 and 
@@ -59,4 +55,3 @@ d = exp(xf(1:2));
 nu = exp(xf(3));
 
 end
-
