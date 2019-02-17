@@ -7,7 +7,8 @@
 % - n: size of the generated random sample
 %
 % OUTPUT:
-% - Y: pxn matrix: in each column, an independent sample of the multivariate Student distribution with the above parameters.
+% - Y: pxn matrix: in each column, an independent sample of the multivariate 
+%      Student distribution with the above parameters.
 
 
 function Y = multiv_student(mu, C, deg, n)
@@ -15,7 +16,8 @@ function Y = multiv_student(mu, C, deg, n)
 p = length(mu);
 mu = reshape(mu, [p,1]);
 
-Sigma = (deg-2)/deg * C; % normalisation needed since covariance matrix and kernel matrix are not the same for t-Stud
+Sigma = (deg-2)/deg * C; % normalisation needed since covariance matrix 
+                         % and kernel matrix are not the same for t-Student
 A = chol(Sigma, 'lower'); %pxp. A*(A') = Sigma
 
 T = mvtrnd(eye(p), deg, n)'; % T is a pxn matrix, with independent p-dimensional samples in each column
