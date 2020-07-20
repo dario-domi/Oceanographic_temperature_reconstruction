@@ -7,7 +7,8 @@ to carry out a data-model comparison of sea-surface temperature during the mid P
 A PCA approach in combination with Gaussian process emulation is used to tackle the task. 
 
 # Code
-The description of the different functions can be found inside each script.
+The uploaded pieces of code represent a subsample of the Matlab functions I wrote to undertake the project during my PhD. 
+A description of the different functions can be found within each script.
 
 # Also present
 Some plots of emulated mean and variance of annual average temperature, compared with proxy data.
